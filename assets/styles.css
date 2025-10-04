@@ -309,3 +309,134 @@ main.container {
 .card {
   position: relative; /* Add this to existing .card styles */
 }
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for badges */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Update existing .cards > a styles */
+.cards > a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  opacity: 0; /* Start hidden for animation */
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Add stagger delay using nth-child */
+.cards > a:nth-child(1) { animation-delay: 0.05s; }
+.cards > a:nth-child(2) { animation-delay: 0.1s; }
+.cards > a:nth-child(3) { animation-delay: 0.15s; }
+.cards > a:nth-child(4) { animation-delay: 0.2s; }
+.cards > a:nth-child(5) { animation-delay: 0.25s; }
+.cards > a:nth-child(6) { animation-delay: 0.3s; }
+.cards > a:nth-child(7) { animation-delay: 0.35s; }
+.cards > a:nth-child(8) { animation-delay: 0.4s; }
+.cards > a:nth-child(9) { animation-delay: 0.45s; }
+.cards > a:nth-child(10) { animation-delay: 0.5s; }
+
+/* For cards beyond 10, use a base delay */
+.cards > a:nth-child(n+11) { animation-delay: 0.5s; }
+
+/* Enhanced card hover effect */
+.cards > a {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cards > a:hover {
+  transform: translateY(-4px);
+}
+
+.cards > a:hover .card {
+  box-shadow: 0 8px 24px rgba(107, 226, 255, 0.15);
+  border-color: rgba(107, 226, 255, 0.3);
+}
+
+/* Smooth transitions for card elements */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card img {
+  transition: transform 0.3s ease;
+}
+
+.cards > a:hover .card img {
+  transform: scale(1.05);
+}
+
+/* If you have a NEW badge, add pulse animation */
+.new-badge {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Smooth color transitions */
+.card .name,
+.card .username,
+.card .meta {
+  transition: color 0.2s ease;
+}
+
+/* Loading animation for the initial state */
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.cards > a {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--card-index) * 0.05s);
+}
+.card img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.cards > a:hover .card img {
+  transform: scale(1.05) rotate(2deg);
+  filter: brightness(1.1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cards > a {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .cards > a:hover {
+    transform: none;
+  }
+  
+  .card img,
+  .card,
+  .new-badge {
+    animation: none;
+    transition: none;
+  }
+}
