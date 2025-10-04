@@ -50,7 +50,21 @@ async function fetchContributors() {
         (b.addedAt || "").localeCompare(a.addedAt || "") ||
         (a.name || "").localeCompare(b.name || "")
     );
+   
+          // After sorting the people array, add:
+      const latestPerson = people[0]; // First person after sorting by addedAt
 
+      // Update stats
+      const totalCountEl = document.getElementById('totalCount');
+      const latestContributorEl = document.getElementById('latestContributor');
+
+      if (totalCountEl) {
+        totalCountEl.textContent = people.length;
+      }
+
+      if (latestContributorEl && latestPerson) {
+        latestContributorEl.textContent = latestPerson.name || latestPerson.username || 'Unknown';
+      }
     const contributorElements = [];
 
     elList.innerHTML = "";
@@ -66,6 +80,14 @@ async function fetchContributors() {
       const card = document.createElement("div");
       card.className = "card";
       card.role = "listitem";
+      
+      if (people.indexOf(p) === 0) {
+        const badge = document.createElement("span");
+        badge.className = "new-badge";
+        badge.textContent = "NEW";
+        card.appendChild(badge);
+      }
+       
 
       const top = document.createElement("div");
       top.className = "top";
