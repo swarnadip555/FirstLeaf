@@ -51,14 +51,25 @@
             aria-live="polite"
             aria-atomic="true"
           ></span>
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search contributors by name or username..."
-              aria-label="Search contributors"
-            />
-          </div>
+          <div class="controls-container">
+                <div class="search-container">
+                  <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search contributors by name or username..."
+                    aria-label="Search contributors"
+                  />
+                </div>
+                <div class="sort-container">
+                  <label for="sortSelect" class="sort-label">Sort by:</label>
+                  <select id="sortSelect" class="sort-select" aria-label="Sort contributors">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                  </select>
+                </div>
+              </div>
               <div class="stats-banner">
                 <div class="stat-item">
                   <span class="stat-label">Total Contributors</span>
