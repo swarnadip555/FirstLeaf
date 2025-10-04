@@ -100,14 +100,15 @@ async function fetchContributors() {
         return latest;
       }, null);
 
-      for (const p of contributors) {
+      for (let i = 0; i < contributors.length; i++) {
+        const p = contributors[i];
         const a = document.createElement("a");
         const profileUrl =
           p.github || (p.username ? `https://github.com/${p.username}` : "#");
-        a.href = profileUrl;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.ariaLabel = `Open ${p.name || p.username || "contributor"} on GitHub`;
+  a.href = profileUrl;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
 
         const card = document.createElement("div");
         card.className = "card";
@@ -152,8 +153,17 @@ async function fetchContributors() {
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
 
+        // append card to link, then add to DOM
         a.appendChild(card);
         elList.appendChild(a);
+
+        // add animation class and index after insertion so animations reliably run
+        (function(el, idx){
+          requestAnimationFrame(() => {
+            el.style.setProperty("--card-index", String(idx));
+            el.classList.add('contributor-link');
+          });
+        })(a, i);
 
         contributorElements.push({
           element: a,
