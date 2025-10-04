@@ -10,6 +10,16 @@
   --accent-2: #7df9d4;
   --danger: #ff6b6b;
 }
+
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --text: #1a202c;
+  --muted: #4a5568;
+  --accent: #0088cc;
+  --accent-2: #00b894;
+  --danger: #e74c3c;
+}
 html,
 body {
   height: 100%;
@@ -28,6 +38,16 @@ body {
       800px 400px at 10% -10%,
       rgba(125, 249, 212, 0.12),
       transparent 50%
+    ),
+    var(--bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="light"] body {
+  background: linear-gradient(
+      135deg,
+      rgba(107, 226, 255, 0.15) 0%,
+      rgba(125, 249, 212, 0.15) 100%
     ),
     var(--bg);
 }
@@ -84,6 +104,17 @@ a:visited {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #071220;
   font-weight: 700;
+}
+
+.theme-toggle {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .theme-toggle {
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 main.container {
@@ -143,8 +174,9 @@ main.container {
   color: var(--muted);
   /* FIX 3: Ellipsis the description text after two lines */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
 }
