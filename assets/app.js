@@ -3,6 +3,7 @@ async function fetchContributors() {
   const elCount = document.getElementById("count");
   const elLoading = document.getElementById("loading");
   const elError = document.getElementById("error");
+  const sortSelect = document.getElementById("sortSelect");
 
   // Resolve repo URL automatically on GitHub Pages, or use a provided override
   function detectRepoUrl() {
@@ -45,84 +46,180 @@ async function fetchContributors() {
       })
       .filter(Boolean);
 
-    people.sort(
-      (a, b) =>
-        (b.addedAt || "").localeCompare(a.addedAt || "") ||
-        (a.name || "").localeCompare(b.name || "")
-    );
+         function sortContributors(contributors, sortType) {
+      const sorted = [...contributors]; 
+      switch (sortType) {
+        case "newest":
+          sorted.sort(
+            (a, b) =>
+              (b.addedAt || "").localeCompare(a.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+          break;
+        case "oldest":
+          sorted.sort(
+            (a, b) =>
+              (a.addedAt || "").localeCompare(b.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+          break;
+        case "name-asc":
+          sorted.sort((a, b) =>
+            (a.name || a.username || "").localeCompare(
+              b.name || b.username || ""
+            )
+          );
+          break;
+        case "name-desc":
+          sorted.sort((a, b) =>
+            (b.name || b.username || "").localeCompare(
+              a.name || a.username || ""
+            )
+          );
+          break;
+        default:
+          sorted.sort(
+            (a, b) =>
+              (b.addedAt || "").localeCompare(a.addedAt || "") ||
+              (a.name || "").localeCompare(b.name || "")
+          );
+      }
+      return sorted;
+    }
 
-    const contributorElements = [];
+     function renderContributors(contributors) {
+      elList.innerHTML = "";
+      const contributorElements = [];
 
-    elList.innerHTML = "";
-    for (const p of people) {
-      const a = document.createElement("a");
-      const profileUrl =
-        p.github || (p.username ? `https://github.com/${p.username}` : "#");
-      a.href = profileUrl;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.ariaLabel = `Open ${p.name || p.username || "contributor"} on GitHub`;
+      //  Find the newest contributor once (based on addedAt)
+      const newestContributor = people.reduce((latest, curr) => {
+        if (!latest) return curr;
+        if ((curr.addedAt || "") > (latest.addedAt || "")) {
+          return curr;
+        }
+        return latest;
+      }, null);
 
-      const card = document.createElement("div");
-      card.className = "card";
-      card.role = "listitem";
+      for (const p of contributors) {
+        const a = document.createElement("a");
+        const profileUrl =
+          p.github || (p.username ? `https://github.com/${p.username}` : "#");
+        a.href = profileUrl;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.ariaLabel = `Open ${p.name || p.username || "contributor"} on GitHub`;
 
-      const top = document.createElement("div");
-      top.className = "top";
+        const card = document.createElement("div");
+        card.className = "card";
+        card.role = "listitem";
 
-      const img = document.createElement("img");
-      img.src =
-        p.avatar || `https://avatars.githubusercontent.com/${p.username || ""}`;
-      img.alt = `${p.name || p.username || "Contributor"} avatar`;
-      img.loading = "lazy";
+          if (newestContributor && p.username === newestContributor.username) {
+            const badge = document.createElement("span");
+            badge.className = "new-badge";
+            badge.textContent = "NEW";
+            card.appendChild(badge);
+          }
 
-      const info = document.createElement("div");
-      const name = document.createElement("div");
-      name.className = "name";
-      name.textContent = p.name || "Anonymous";
+        const top = document.createElement("div");
+        top.className = "top";
 
-      const username = document.createElement("div");
-      username.className = "username";
-      username.textContent = p.username ? `@${p.username}` : "";
+        const img = document.createElement("img");
+        img.src =
+          p.avatar ||
+          `https://avatars.githubusercontent.com/${p.username || ""}`;
+        img.alt = `${p.name || p.username || "Contributor"} avatar`;
+        img.loading = "lazy";
 
-      info.appendChild(name);
-      info.appendChild(username);
+        const info = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = p.name || "Anonymous";
 
-      top.appendChild(img);
-      top.appendChild(info);
+        const username = document.createElement("div");
+        username.className = "username";
+        username.textContent = p.username ? `@${p.username}` : "";
 
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      if (p.message) meta.textContent = p.message;
+        info.appendChild(name);
+        info.appendChild(username);
 
-      card.appendChild(top);
-      if (p.message) card.appendChild(meta);
+        top.appendChild(img);
+        top.appendChild(info);
 
-      a.appendChild(card);
-      elList.appendChild(a);
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        if (p.message) meta.textContent = p.message;
 
-      // Cache element and searchable data
-      contributorElements.push({
-        element: a,
-        name: (p.name || "").toLowerCase(),
-        username: (p.username || "").toLowerCase(),
+        card.appendChild(top);
+        if (p.message) card.appendChild(meta);
+
+        a.appendChild(card);
+        elList.appendChild(a);
+
+        contributorElements.push({
+          element: a,
+          name: (p.name || "").toLowerCase(),
+          username: (p.username || "").toLowerCase(),
+        });
+      }
+
+      return contributorElements;
+    }
+
+    let sortedPeople = sortContributors(people, "newest");
+    let contributorElements = renderContributors(sortedPeople);
+
+
+    // people.sort(
+    //   (a, b) =>
+    //     (b.addedAt || "").localeCompare(a.addedAt || "") ||
+    //     (a.name || "").localeCompare(b.name || "")
+    // );
+
+    // search functionality 
+        const searchInput = document.getElementById("searchInput");
+        if (searchInput) {
+          searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            contributorElements.forEach(({ element, name, username }) => {
+              if (name.includes(searchTerm) || username.includes(searchTerm)) {
+                element.style.display = "";
+              } else {
+                element.style.display = "none";
+              }
+            });
+          });
+        }
+   
+    if (sortSelect) {
+      sortSelect.addEventListener("change", (e) => {
+        const sortType = e.target.value;
+        sortedPeople = sortContributors(people, sortType);
+        contributorElements = renderContributors(sortedPeople);
+
+        // reapply search
+        const searchInput = document.getElementById("searchInput");
+        if (searchInput && searchInput.value) {
+          const searchTerm = searchInput.value.toLowerCase();
+          contributorElements.forEach(({ element, name, username }) => {
+            if (name.includes(searchTerm) || username.includes(searchTerm)) {
+              element.style.display = "";
+            } else {
+              element.style.display = "none";
+            }
+          });
+        }
       });
     }
 
     // Set up search functionality once, outside the loop
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
-        const searchTerm = e.target.value.toLowerCase();
+    const latestPerson = sortedPeople[0];
+    const totalCountEl = document.getElementById("totalCount");
+    const latestContributorEl = document.getElementById("latestContributor");
 
-        contributorElements.forEach(({ element, name, username }) => {
-          if (name.includes(searchTerm) || username.includes(searchTerm)) {
-            element.style.display = "";
-          } else {
-            element.style.display = "none";
-          }
-        });
-      });
+    if (totalCountEl) totalCountEl.textContent = people.length;
+    if (latestContributorEl && latestPerson) {
+      latestContributorEl.textContent =
+        latestPerson.name || latestPerson.username || "Unknown";
     }
 
     elCount.textContent = `${people.length} contributor${
@@ -136,8 +233,36 @@ async function fetchContributors() {
   }
 }
 
+function initThemeToggle() {
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const html = document.documentElement;
+
+  // Check for saved theme preference or default to 'dark'
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', currentTheme);
+  updateThemeIcon(currentTheme);
+
+  // Toggle theme on button click
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+
+  function updateThemeIcon(theme) {
+    if (themeIcon) {
+      themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+  }
+}
+
 function boot() {
   fetchContributors();
+  initThemeToggle();
 }
 
 boot();

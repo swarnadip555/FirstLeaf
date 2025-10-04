@@ -10,6 +10,16 @@
   --accent-2: #7df9d4;
   --danger: #ff6b6b;
 }
+
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --text: #1a202c;
+  --muted: #4a5568;
+  --accent: #0088cc;
+  --accent-2: #00b894;
+  --danger: #e74c3c;
+}
 html,
 body {
   height: 100%;
@@ -28,6 +38,16 @@ body {
       800px 400px at 10% -10%,
       rgba(125, 249, 212, 0.12),
       transparent 50%
+    ),
+    var(--bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="light"] body {
+  background: linear-gradient(
+      135deg,
+      rgba(107, 226, 255, 0.15) 0%,
+      rgba(125, 249, 212, 0.15) 100%
     ),
     var(--bg);
 }
@@ -84,6 +104,17 @@ a:visited {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #071220;
   font-weight: 700;
+}
+
+.theme-toggle {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .theme-toggle {
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 main.container {
@@ -143,8 +174,8 @@ main.container {
   color: var(--muted);
   /* FIX 3: Ellipsis the description text after two lines */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -222,167 +253,278 @@ main.container {
   border-color: var(--accent);
 }
 
-/* Enhanced Mobile Responsiveness */
-
-/* Better card grid layout for mobile */
-.cards {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+.stats-banner {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(107, 226, 255, 0.1),
+    rgba(125, 249, 212, 0.1)
+  );
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
 }
 
-/* Mobile breakpoints for cards */
-@media (max-width: 640px) {
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0 0.5rem;
-  }
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-@media (min-width: 641px) and (max-width: 900px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.stat-label {
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-@media (min-width: 901px) {
-  .cards {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
+.stat-value {
+  color: var(--accent-2);
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
-/* Enhanced mobile header layout */
 @media (max-width: 720px) {
-  .site-header h1 {
-    font-size: 2rem;
-  }
-
-  .site-header .tagline {
-    font-size: 0.95rem;
-  }
-
-  .actions {
+  .stats-banner {
     flex-direction: column;
-    width: 100%;
-  }
-
-  .actions .btn {
-    width: 100%;
-    text-align: center;
+    gap: 1rem;
   }
 }
-
-/* Optimize card sizing for mobile */
-@media (max-width: 640px) {
-  .card {
-    padding: 1rem;
-  }
-
-  .card .top {
-    flex-direction: row;
-  }
-
-  .card img {
-    width: 60px;
-    height: 60px;
-  }
-
-  .card .name {
-    font-size: 1rem;
-  }
-
-  .card .username {
-    font-size: 0.85rem;
-  }
-
-  .card .meta {
-    font-size: 0.875rem;
-  }
+.new-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* Improve touch targets - minimum 44px */
+.card {
+  position: relative; /* Add this to existing .card styles */
+}
+
+
+
+
+/* Update search-container to be part of controls */
+.controls-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  flex: 1;
+  min-width: 250px;
+  margin: 0; /* Remove existing margin */
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: 0.75rem 1rem;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 150px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.sort-select:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Style the dropdown arrow */
+.sort-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a7b3d0' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
+}
+
+/* Style dropdown options */
+.sort-select option {
+  background: var(--panel);
+  color: var(--text);
+}
+.sort-select option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Mobile responsiveness */
 @media (max-width: 720px) {
-  .btn {
-    min-height: 44px;
-    padding: 0.75rem 1.25rem;
+  .controls-container {
+    flex-direction: column;
   }
-
-  #searchInput {
-    min-height: 44px;
-    font-size: 16px; /* Prevents zoom on iOS */
+  
+  .search-container {
+    width: 100%;
   }
-
-  .cards > a {
-    min-height: 100px;
+  
+  .sort-container {
+    width: 100%;
+  }
+  
+  .sort-select {
+    flex: 1;
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Touch feedback for mobile devices */
-@media (hover: none) and (pointer: coarse) {
-  /* Mobile/touch devices */
-  .cards > a:active {
-    transform: scale(0.98);
-    opacity: 0.9;
+/* Pulse animation for badges */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
   }
-
-  .btn:active {
-    transform: scale(0.97);
+  50% {
+    opacity: 0.7;
   }
+}
 
-  /* Remove hover effects on touch devices */
+/* Update existing .cards > a styles */
+.cards > a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  opacity: 0; /* Start hidden for animation */
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Add stagger delay using nth-child */
+.cards > a:nth-child(1) { animation-delay: 0.05s; }
+.cards > a:nth-child(2) { animation-delay: 0.1s; }
+.cards > a:nth-child(3) { animation-delay: 0.15s; }
+.cards > a:nth-child(4) { animation-delay: 0.2s; }
+.cards > a:nth-child(5) { animation-delay: 0.25s; }
+.cards > a:nth-child(6) { animation-delay: 0.3s; }
+.cards > a:nth-child(7) { animation-delay: 0.35s; }
+.cards > a:nth-child(8) { animation-delay: 0.4s; }
+.cards > a:nth-child(9) { animation-delay: 0.45s; }
+.cards > a:nth-child(10) { animation-delay: 0.5s; }
+
+/* For cards beyond 10, use a base delay */
+.cards > a:nth-child(n+11) { animation-delay: 0.5s; }
+
+/* Enhanced card hover effect */
+.cards > a {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cards > a:hover {
+  transform: translateY(-4px);
+}
+
+.cards > a:hover .card {
+  box-shadow: 0 8px 24px rgba(107, 226, 255, 0.15);
+  border-color: rgba(107, 226, 255, 0.3);
+}
+
+/* Smooth transitions for card elements */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card img {
+  transition: transform 0.3s ease;
+}
+
+.cards > a:hover .card img {
+  transform: scale(1.05);
+}
+
+/* If you have a NEW badge, add pulse animation */
+.new-badge {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Smooth color transitions */
+.card .name,
+.card .username,
+.card .meta {
+  transition: color 0.2s ease;
+}
+
+/* Loading animation for the initial state */
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.cards > a {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--card-index) * 0.05s);
+}
+.card img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.cards > a:hover .card img {
+  transform: scale(1.05) rotate(2deg);
+  filter: brightness(1.1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cards > a {
+    animation: none;
+    opacity: 1;
+  }
+  
   .cards > a:hover {
     transform: none;
   }
-
-  .cards > a:hover .card {
-    box-shadow: none;
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-}
-
-/* Enhanced container padding for mobile */
-@media (max-width: 720px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .list-header {
-    padding: 0;
-  }
-
-  .howto {
-    padding: 1rem;
-    margin: 2rem 0;
-  }
-}
-
-/* iOS safe area support */
-body {
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-
-.site-header,
-.site-footer {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Improved "How to contribute" section for mobile */
-@media (max-width: 640px) {
-  .howto ol {
-    padding-left: 1.25rem;
-  }
-
-  .howto li {
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-  }
-
-  .howto code {
-    font-size: 0.85rem;
-    word-break: break-all;
+  
+  .card img,
+  .card,
+  .new-badge {
+    animation: none;
+    transition: none;
   }
 }
