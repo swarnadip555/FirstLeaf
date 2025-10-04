@@ -398,6 +398,9 @@ main.container {
   
   .sort-select {
     flex: 1;
+  }
+}
+
 /* Fade-in animation */
 @keyframes fadeInUp {
   from {
@@ -420,40 +423,36 @@ main.container {
   }
 }
 
-/* Update existing .cards > a styles */
+/* Baseline for contributor links inside .cards */
 .cards > a {
   text-decoration: none;
   color: inherit;
   display: block;
-  opacity: 0; /* Start hidden for animation */
-  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0; /* start hidden until animation/class applied */
+  transform: translateY(12px) scale(0.99);
+  will-change: transform, opacity;
 }
 
-/* Add stagger delay using nth-child */
-.cards > a:nth-child(1) { animation-delay: 0.05s; }
-.cards > a:nth-child(2) { animation-delay: 0.1s; }
-.cards > a:nth-child(3) { animation-delay: 0.15s; }
-.cards > a:nth-child(4) { animation-delay: 0.2s; }
-.cards > a:nth-child(5) { animation-delay: 0.25s; }
-.cards > a:nth-child(6) { animation-delay: 0.3s; }
-.cards > a:nth-child(7) { animation-delay: 0.35s; }
-.cards > a:nth-child(8) { animation-delay: 0.4s; }
-.cards > a:nth-child(9) { animation-delay: 0.45s; }
-.cards > a:nth-child(10) { animation-delay: 0.5s; }
-
-/* For cards beyond 10, use a base delay */
-.cards > a:nth-child(n+11) { animation-delay: 0.5s; }
-
-/* Enhanced card hover effect */
-.cards > a {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Animated state applied by JS via the .contributor-link class. Uses
+   --card-index (set in JS) for staggered delays. */
+.contributor-link {
+  animation-name: fadeInUp, scaleIn;
+  animation-duration: 0.45s, 0.36s;
+  animation-timing-function: cubic-bezier(0.2,0.8,0.2,1), cubic-bezier(0.34,1.56,0.64,1);
+  animation-fill-mode: forwards, forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.06s), calc(var(--card-index, 0) * 0.06s + 0.02s);
+  transition: opacity 0.45s ease, transform 0.28s ease, box-shadow 0.28s ease;
+  opacity: 1; /* becomes visible when class applied */
 }
 
-.cards > a:hover {
-  transform: translateY(-4px);
+/* Hover effects for the animated links */
+.contributor-link:hover {
+  /* lift and a subtle vertical stretch on hover */
+  transform: translateY(-4px) scaleY(1.03);
+  transform-origin: center;
 }
 
-.cards > a:hover .card {
+.contributor-link:hover .card {
   box-shadow: 0 8px 24px rgba(107, 226, 255, 0.15);
   border-color: rgba(107, 226, 255, 0.3);
 }
@@ -467,8 +466,8 @@ main.container {
   transition: transform 0.3s ease;
 }
 
-.cards > a:hover .card img {
-  transform: scale(1.05);
+.contributor-link:hover .card img {
+  transform: scale(1.05) rotate(0deg) scaleY(1.02);
 }
 
 /* If you have a NEW badge, add pulse animation */
@@ -498,17 +497,12 @@ main.container {
     transform: scale(1);
   }
 }
-
-.cards > a {
-  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  animation-delay: calc(var(--card-index) * 0.05s);
-}
 .card img {
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.cards > a:hover .card img {
-  transform: scale(1.05) rotate(2deg);
+.contributor-link:hover .card img {
+  transform: scale(1.05) rotate(2deg) scaleY(1.04);
   filter: brightness(1.1);
 }
 @media (prefers-reduced-motion: reduce) {
