@@ -141,6 +141,7 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/ada"><img src="https://avatars.githubusercontent.com/ada" width="80px;" alt="Ada Lovelace"/></a></td>
     <td align="center"><a href="https://github.com/grace"><img src="https://avatars.githubusercontent.com/grace" width="80px;" alt="Grace Hopper"/></a></td>
     <td align="center"><a href="https://github.com/atharvnikam38"><img src="https://avatars.githubusercontent.com/atharvnikam38" width="80px;" alt="Atharv Nikam"/></a></td>
+    <td align="center"><a href="https://github.com/ZalaNidhish"><img src="https://avatars.githubusercontent.com/ZalaNidhish" width="80px;" alt="Nidhish Zala"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Kishan8548"><sub><b>Kishan Garhwal</b></sub></a></td>
@@ -148,5 +149,6 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/ada"><sub><b>Ada Lovelace</b></sub></a></td>
     <td align="center"><a href="https://github.com/grace"><sub><b>Grace Hopper</b></sub></a></td>
     <td align="center"><a href="https://github.com/atharvnikam38"><sub><b>Atharv Nikam</b></sub></a></td>
+    <td align="center"><a href="https://github.com/ZalaNidhish"><sub><b>Nidhish Zala</b></sub></a></td>
   </tr>
 </table>
