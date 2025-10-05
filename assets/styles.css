@@ -20,37 +20,21 @@
   --accent-2: #00b894;
   --danger: #e74c3c;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
-  background: radial-gradient(
-      1200px 600px at 80% -10%,
-      rgba(107, 226, 255, 0.09),
-      transparent 60%
-    ),
-    radial-gradient(
-      800px 400px at 10% -10%,
-      rgba(125, 249, 212, 0.12),
-      transparent 50%
-    ),
-    var(--bg);
+  background: var(--bg);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-[data-theme="light"] body {
-  background: linear-gradient(
-      135deg,
-      rgba(107, 226, 255, 0.15) 0%,
-      rgba(125, 249, 212, 0.15) 100%
-    ),
-    var(--bg);
-}
 /* Remove underlines from all links across the site */
 a,
 a:hover,
