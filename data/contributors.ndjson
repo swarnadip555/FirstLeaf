@@ -7,7 +7,6 @@
 {"name":"Anup","username":"anup2702","github":"https://github.com/anup2702","message":"This is for my Hacktoberfest PR","badges":["helper","core"],"addedAt":"2025-09-30T00:00:00.000Z"}
 {"name":"Jatin","username":"jatinagg1","github":"https://github.com/jatinagg1","message":"This is my first Hacktoberfest PR","badges":["early","core"],"addedAt":"2025-10-01T00:00:00.000Z"}
 {"name":"Sarthak","username":"sarthakjalan05","github":"https://github.com/sarthakjalan05","message":"This is my first Hacktoberfest PR","addedAt":"2025-10-01T00:00:00.000Z"}
-
 {"name":"Mainur","username":"MRIEnan","github":"https://github.com/MRIEnan","message":"Let's contribute together!","badges":["helper","core"],"addedAt":"2025-10-01T00:00:00.000Z"}
 {"name":"Ritwik","username":"ritwikt17","github":"https://github.com/ritwik1709","message":"Getting started with my first contribution in open source","badges":["early","core"],"addedAt":"2025-10-02T00:00:00.000Z"}
 {"name":"Dheeraj Saini","username":"Steady3099","github":"https://github.com/Steady3099","message":"My first PR!!...Excited for the open source world.","badges":["first","core"],"addedAt":"2025-10-03T00:00:00.000Z"}
@@ -15,5 +14,4 @@
 {"name":"Divyansh Raj Soni","username":"DivyanshRajSoni","github":"https://github.com/DivyanshRajSoni","message":"Excited to make my first PR!","badges":["first","core"],"addedAt":"2025-10-05T00:00:00.000Z"}
 {"name":"Ada Lovelace","username":"ada","github":"https://github.com/ada","message":"Hello, world!","badges":["helper","core"],"addedAt":"2025-01-01T12:00:00.000Z"}
 {"name":"Grace Hopper","username":"grace","badges":[{"type":"custom","text":"Bug Hunter","color":"#ff6b6b"}],"message":"Found 10 bugs!"}
-
-
+{"name":"Atharv Nikam","username":"atharvnikam38","github":"https://github.com/atharvnikam38","message":"Excited to contribute to open source through Hacktoberfest!","addedAt":"2025-10-05T00:00:00.000Z"}
