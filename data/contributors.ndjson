@@ -15,3 +15,4 @@
 {"name":"Ada Lovelace","username":"ada","github":"https://github.com/ada","message":"Hello, world!","badges":["helper","core"],"addedAt":"2025-01-01T12:00:00.000Z"}
 {"name":"Grace Hopper","username":"grace","badges":[{"type":"custom","text":"Bug Hunter","color":"#ff6b6b"}],"message":"Found 10 bugs!"}
 {"name":"Atharv Nikam","username":"atharvnikam38","github":"https://github.com/atharvnikam38","message":"Excited to contribute to open source through Hacktoberfest!","addedAt":"2025-10-05T00:00:00.000Z"}
+{"name":"Nidhish Zala","username":"ZalaNidhish","github":"https://github.com/ZalaNidhish","message":"Finding Ways To Contribute to get hacktober 2k25 t-shirt 😋","addedAt":"2025-10-05T00:00:00.000Z"}
