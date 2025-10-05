@@ -274,6 +274,39 @@ async function fetchContributors() {
   }
 }
 
+  function initScrollToTop() {
+    const scrollButton = document.getElementById('scrollToTop');
+    if (!scrollButton) return;
+
+    // Create a sentinel element at the top
+    const sentinel = document.createElement('div');
+    sentinel.style.position = 'absolute';
+    sentinel.style.top = '200px';
+    sentinel.style.height = '1px';
+    document.body.insertBefore(sentinel, document.body.firstChild);
+
+    // Observe when we scroll past the sentinel
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          scrollButton.classList.remove('visible');
+        } else {
+          scrollButton.classList.add('visible');
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
+    scrollButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
 function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
@@ -301,9 +334,26 @@ function initThemeToggle() {
   }
 }
 
+function initScrollProgress() {
+  const progressBar = document.getElementById('scrollProgress');
+  if (!progressBar) return;
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = `${scrollPercent}%`;
+  }
+
+  window.addEventListener('scroll', updateProgress);
+  updateProgress(); // initialize on load
+}
+
 function boot() {
   fetchContributors();
   initThemeToggle();
+  initScrollToTop();
+  initScrollProgress();
 }
 
 boot();

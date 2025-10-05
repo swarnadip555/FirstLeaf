@@ -137,10 +137,8 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Kishan8548"><img src="https://avatars.githubusercontent.com/Kishan8548" width="80px;" alt="Kishan Garhwal"/></a></td>
-    <td align="center"><a href="https://github.com/DivyanshRajSoni"><img src="https://avatars.githubusercontent.com/DivyanshRajSoni" width="80px;" alt="Divyansh Raj Soni"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Kishan8548"><sub><b>Kishan Garhwal</b></sub></a></td>
-    <td align="center"><a href="https://github.com/DivyanshRajSoni"><sub><b>Divyansh Raj Soni</b></sub></a></td>
   </tr>
 </table>
