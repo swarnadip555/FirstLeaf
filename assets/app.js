@@ -46,8 +46,8 @@ async function fetchContributors() {
       })
       .filter(Boolean);
 
-         function sortContributors(contributors, sortType) {
-      const sorted = [...contributors]; 
+    function sortContributors(contributors, sortType) {
+      const sorted = [...contributors];
       switch (sortType) {
         case "newest":
           sorted.sort(
@@ -73,7 +73,7 @@ async function fetchContributors() {
         case "name-desc":
           sorted.sort((a, b) =>
             (b.name || b.username || "").localeCompare(
-              a.name || a.username || ""
+              a.name || b.username || ""
             )
           );
           break;
@@ -87,12 +87,12 @@ async function fetchContributors() {
       return sorted;
     }
 
-     function renderContributors(contributors) {
+    function renderContributors(contributors) {
       elList.innerHTML = "";
       const contributorElements = [];
 
-      //  Find the newest contributor once (based on addedAt)
-      const newestContributor = people.reduce((latest, curr) => {
+      // Find the newest contributor once (based on addedAt)
+      const newestContributor = contributors.reduce((latest, curr) => {
         if (!latest) return curr;
         if ((curr.addedAt || "") > (latest.addedAt || "")) {
           return curr;
@@ -105,21 +105,21 @@ async function fetchContributors() {
         const a = document.createElement("a");
         const profileUrl =
           p.github || (p.username ? `https://github.com/${p.username}` : "#");
-  a.href = profileUrl;
-  a.target = "_blank";
-  a.rel = "noopener";
-  a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
+        a.href = profileUrl;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.setAttribute('aria-label', `Open ${p.name || p.username || "contributor"} on GitHub`);
 
         const card = document.createElement("div");
         card.className = "card";
         card.role = "listitem";
 
-          if (newestContributor && p.username === newestContributor.username) {
-            const badge = document.createElement("span");
-            badge.className = "new-badge";
-            badge.textContent = "NEW";
-            card.appendChild(badge);
-          }
+        if (newestContributor && p.username === newestContributor.username) {
+          const badge = document.createElement("span");
+          badge.className = "new-badge";
+          badge.textContent = "NEW";
+          card.appendChild(badge);
+        }
 
         const top = document.createElement("div");
         top.className = "top";
@@ -146,6 +146,46 @@ async function fetchContributors() {
         top.appendChild(img);
         top.appendChild(info);
 
+        // Add badges if they exist
+        if (p.badges && Array.isArray(p.badges)) {
+          const badgesContainer = document.createElement('div');
+          badgesContainer.className = 'badges';
+          
+          p.badges.forEach(badge => {
+            let badgeInfo;
+            let badgeClass;
+
+            if (typeof badge === 'string') {
+              // Predefined badge
+              badgeInfo = badgeIcons[badge];
+              badgeClass = `badge-${badge}`;
+            } else if (badge && badge.type === 'custom') {
+              // Custom badge
+              badgeInfo = {
+                icon: '', // No icon for custom badges, or define a default
+                label: badge.text || 'Custom',
+                color: badge.color || '#ffffff'
+              };
+              badgeClass = 'badge-custom';
+            }
+
+            if (badgeInfo) {
+              const badgeEl = document.createElement('span');
+              badgeEl.className = `badge ${badgeClass}`;
+              badgeEl.textContent = `${badgeInfo.icon ? badgeInfo.icon + ' ' : ''}${badgeInfo.label}`;
+              badgeEl.title = badgeInfo.label;
+              if (badgeInfo.color && badgeClass === 'badge-custom') {
+                badgeEl.style.background = badgeInfo.color;
+              }
+              badgesContainer.appendChild(badgeEl);
+            }
+          });
+
+          if (badgesContainer.children.length > 0) {
+            card.appendChild(badgesContainer);
+          }
+        }
+
         const meta = document.createElement("div");
         meta.className = "meta";
         if (p.message) meta.textContent = p.message;
@@ -153,11 +193,11 @@ async function fetchContributors() {
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
 
-        // append card to link, then add to DOM
+        // Append card to link, then add to DOM
         a.appendChild(card);
         elList.appendChild(a);
 
-        // add animation class and index after insertion so animations reliably run
+        // Add animation class and index after insertion so animations reliably run
         (function(el, idx){
           requestAnimationFrame(() => {
             el.style.setProperty("--card-index", String(idx));
@@ -178,35 +218,28 @@ async function fetchContributors() {
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
+    // Search functionality
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        contributorElements.forEach(({ element, name, username }) => {
+          if (name.includes(searchTerm) || username.includes(searchTerm)) {
+            element.style.display = "";
+          } else {
+            element.style.display = "none";
+          }
+        });
+      });
+    }
 
-    // people.sort(
-    //   (a, b) =>
-    //     (b.addedAt || "").localeCompare(a.addedAt || "") ||
-    //     (a.name || "").localeCompare(b.name || "")
-    // );
-
-    // search functionality 
-        const searchInput = document.getElementById("searchInput");
-        if (searchInput) {
-          searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            contributorElements.forEach(({ element, name, username }) => {
-              if (name.includes(searchTerm) || username.includes(searchTerm)) {
-                element.style.display = "";
-              } else {
-                element.style.display = "none";
-              }
-            });
-          });
-        }
-   
     if (sortSelect) {
       sortSelect.addEventListener("change", (e) => {
         const sortType = e.target.value;
         sortedPeople = sortContributors(people, sortType);
         contributorElements = renderContributors(sortedPeople);
 
-        // reapply search
+        // Reapply search
         const searchInput = document.getElementById("searchInput");
         if (searchInput && searchInput.value) {
           const searchTerm = searchInput.value.toLowerCase();
@@ -221,7 +254,7 @@ async function fetchContributors() {
       });
     }
 
-    // Set up search functionality once, outside the loop
+    // Set up stats
     const latestPerson = sortedPeople[0];
     const totalCountEl = document.getElementById("totalCount");
     const latestContributorEl = document.getElementById("latestContributor");
@@ -232,9 +265,7 @@ async function fetchContributors() {
         latestPerson.name || latestPerson.username || "Unknown";
     }
 
-    elCount.textContent = `${people.length} contributor${
-      people.length === 1 ? "" : "s"
-    }`;
+    elCount.textContent = `${people.length} contributor${people.length === 1 ? "" : "s"}`;
     elLoading.remove();
   } catch (err) {
     console.error(err);
@@ -326,3 +357,12 @@ function boot() {
 }
 
 boot();
+
+const badgeIcons = {
+  first: { icon: '🥇', label: 'First', color: '#ffd700' },
+  core: { icon: '⭐', label: 'Core Team', color: '#667eea' },
+  top: { icon: '🏆', label: 'Top Contributor', color: '#f5576c' },
+  helper: { icon: '🤝', label: 'Helper', color: '#00f2fe' },
+  early: { icon: '🌱', label: 'Early Adopter', color: '#43e97b' },
+  milestone: { icon: '🎯', label: 'Milestone', color: '#fa709a' }
+};
