@@ -137,8 +137,10 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Kishan8548"><img src="https://avatars.githubusercontent.com/Kishan8548" width="80px;" alt="Kishan Garhwal"/></a></td>
+    <td align="center"><a href="https://github.com/atharvnikam38"><img src="https://avatars.githubusercontent.com/atharvnikam38" width="80px;" alt="Atharv Nikam"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Kishan8548"><sub><b>Kishan Garhwal</b></sub></a></td>
+    <td align="center"><a href="https://github.com/atharvnikam38"><sub><b>Atharv Nikam</b></sub></a></td>
   </tr>
 </table>
