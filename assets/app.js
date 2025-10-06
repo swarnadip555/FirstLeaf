@@ -32,7 +32,16 @@ async function fetchContributors() {
   }
 
   function showSpotlight() {
-    if (contributors.length === 0) return;
+    if (contributors.length === 0) {
+        // Hide the spotlight section if there are no contributors
+        const spotlightSection = document.getElementById('spotlight-section');
+        if(spotlightSection) spotlightSection.style.display = 'none';
+        return;
+    }
+    
+    const spotlightSection = document.getElementById('spotlight-section');
+    if(spotlightSection) spotlightSection.style.display = '';
+
 
     let randomIndex;
     do {
@@ -43,14 +52,25 @@ async function fetchContributors() {
     const person = contributors[randomIndex];
 
     elSpotlight.innerHTML = `
-      <img src="${
-        person.avatar ||
-        `https://avatars.githubusercontent.com/${person.username || ""}`
-      }" alt="${person.name || person.username || "Contributor"} avatar">
-      <div class="name">${person.name || "Anonymous"}</div>
-      <div class="username">@${person.username || ""}</div>
-      <div class="message">"${person.message || "No message"}"</div>
+      <div class="spotlight-content">
+        <img src="${
+          person.avatar ||
+          `https://avatars.githubusercontent.com/${person.username || ""}`
+        }" alt="${person.name || person.username || "Contributor"} avatar">
+        <div class="spotlight-text">
+          <div class="spotlight-header">⭐ Contributor Spotlight</div>
+          <div class="spotlight-name">${person.name || "Anonymous"}</div>
+          <div class="spotlight-message">"${person.message || "No message"}"</div>
+        </div>
+      </div>
+      <button id="show-another" class="btn">🎲 Show Another</button>
     `;
+
+    // Re-add event listener for the new button
+    const newShowAnotherButton = document.getElementById("show-another");
+    if (newShowAnotherButton) {
+        newShowAnotherButton.addEventListener("click", showSpotlight);
+    }
   }
 
   try {
@@ -391,7 +411,7 @@ async function fetchContributors() {
     elCount.textContent = `${people.length} contributor${people.length === 1 ? "" : "s"}`;
     elLoading.remove();
     showSpotlight(); // Initial spotlight
-    elShowAnother.addEventListener("click", showSpotlight); // Add event listener for the button
+    
   } catch (err) {
     console.error(err);
     elError.hidden = false;

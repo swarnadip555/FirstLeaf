@@ -49,12 +49,6 @@
     </header>
 
     <main class="container">
-      <section id="spotlight-section" aria-labelledby="spotlight-title">
-        <h2 id="spotlight-title">⭐ Contributor Spotlight ⭐</h2>
-        <div id="spotlight" class="spotlight-card"></div>
-        <button id="show-another" class="btn">🎲 Show Another</button>
-      </section>
-
       <section
         aria-labelledby="contributors-title"
         class="contributors-section"
@@ -107,16 +101,9 @@
           </div>
         </div>
 
-        <div class="stats-cards">
-          <div class="stat-card">
-            <div class="stat-value" id="totalCount">0</div>
-            <div class="stat-label">Total Contributors</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="latestContributor">-</div>
-            <div class="stat-label">Latest Contributor</div>
-          </div>
-        </div>
+        <section id="spotlight-section">
+          <div id="spotlight" class="spotlight-card"></div>
+        </section>
 
         <div id="contributors" class="cards" role="list"></div>
 

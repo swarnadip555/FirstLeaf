@@ -118,7 +118,7 @@ main.container {
 }
 
 .cards {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 14px;
@@ -189,55 +189,60 @@ main.container {
 }
 
 #spotlight-section {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-#spotlight-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
 .spotlight-card {
-  background: linear-gradient( 135deg, rgba(107, 226, 255, 0.1), rgba(125, 249, 212, 0.1) );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--panel);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
   transition: all 0.3s ease;
-  min-height: 250px;
 }
 
-.spotlight-card img {
-  width: 120px;
-  height: 120px;
+.spotlight-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+}
+
+.spotlight-content img {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  object-fit: cover;
   border: 2px solid var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 }
 
-.spotlight-card .name {
-  font-size: 1.8rem;
+.spotlight-header {
+  font-size: 0.8rem;
   font-weight: 700;
-  margin-top: 1rem;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.spotlight-name {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--accent-2);
 }
 
-.spotlight-card .username {
+.spotlight-message {
+  font-size: 0.95rem;
   color: var(--muted);
-  font-size: 1.1rem;
-}
-
-.spotlight-card .message {
-  margin-top: 1rem;
-  font-size: 1.1rem;
 }
 
 #show-another {
-  margin-top: 1rem;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
 }
+
 
 .howto {
   margin-top: 3rem;
