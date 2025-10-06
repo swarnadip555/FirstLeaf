@@ -114,6 +114,46 @@ async function fetchContributors() {
         card.className = "card";
         card.role = "listitem";
 
+        // Create appreciation bar
+        const appreciationBar = document.createElement("div");
+        appreciationBar.className = "appreciation-bar";
+
+        // Add appreciation buttons
+        const appreciationTypes = [
+          { type: "clap", emoji: "👏" },
+          { type: "heart", emoji: "❤️" },
+          { type: "party", emoji: "🎉" },
+          { type: "thanks", emoji: "🙏" },
+          { type: "star", emoji: "⭐" }
+        ];
+
+        appreciationTypes.forEach(appType => {
+          const btn = document.createElement("button");
+          btn.className = "appreciation-btn";
+          btn.setAttribute("data-type", appType.type);
+          btn.setAttribute("data-username", p.username || "");
+          btn.setAttribute("aria-label", `Send ${appType.type} appreciation`);
+          btn.title = "Send appreciation";
+
+          const emoji = document.createElement("span");
+          emoji.className = "emoji";
+          emoji.textContent = appType.emoji;
+
+          const count = document.createElement("span");
+          count.className = "count";
+          count.textContent = "0";
+
+          btn.appendChild(emoji);
+          btn.appendChild(count);
+          appreciationBar.appendChild(btn);
+        });
+
+        // Add total appreciation count
+        const totalAppreciation = document.createElement("div");
+        totalAppreciation.className = "total-appreciation";
+        totalAppreciation.textContent = "Total: 0 appreciations";
+        appreciationBar.appendChild(totalAppreciation);
+
         if (newestContributor && p.username === newestContributor.username) {
           const badge = document.createElement("span");
           badge.className = "new-badge";
@@ -192,10 +232,14 @@ async function fetchContributors() {
 
         card.appendChild(top);
         if (p.message) card.appendChild(meta);
+        card.appendChild(appreciationBar);
 
         // Append card to link, then add to DOM
         a.appendChild(card);
         elList.appendChild(a);
+
+        // Initialize appreciation data for this contributor
+        initAppreciationForContributor(p.username || "", appreciationBar);
 
         // Add animation class and index after insertion so animations reliably run
         (function(el, idx){
@@ -398,6 +442,100 @@ function initScrollProgress() {
 
   window.addEventListener('scroll', updateProgress);
   updateProgress(); // initialize on load
+}
+
+// Appreciation system functions
+function loadAppreciation() {
+  try {
+    const data = localStorage.getItem('appreciation');
+    return data ? JSON.parse(data) : {};
+  } catch (e) {
+    console.error("Error loading appreciation data:", e);
+    return {};
+  }
+}
+
+function saveAppreciation(data) {
+  try {
+    localStorage.setItem('appreciation', JSON.stringify(data));
+  } catch (e) {
+    console.error("Error saving appreciation data:", e);
+  }
+}
+
+function initAppreciationForContributor(username, appreciationBar) {
+  const data = loadAppreciation();
+  const userAppreciation = data[username] || { sent: [], counts: {} };
+  const totalEl = appreciationBar.querySelector('.total-appreciation');
+
+  // Update each button with current count and state
+  const buttons = appreciationBar.querySelectorAll('.appreciation-btn');
+  let totalCount = 0;
+
+  buttons.forEach(btn => {
+    const type = btn.dataset.type;
+    const countEl = btn.querySelector('.count');
+    const count = userAppreciation.counts[type] || 0;
+    countEl.textContent = count;
+    totalCount += count;
+
+    // Mark as sent if user already sent this appreciation
+    if (userAppreciation.sent && userAppreciation.sent.includes(type)) {
+      btn.classList.add('sent');
+    }
+
+    // Add click event listener
+    btn.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default button behavior
+      e.stopPropagation(); // Prevent event from bubbling up to the parent link
+      handleAppreciationClick(username, type, btn);
+    });
+  });
+
+  // Update total count
+  totalEl.textContent = `Total: ${totalCount} appreciation${totalCount === 1 ? '' : 's'}`;
+}
+
+function handleAppreciationClick(username, type, btn) {
+  // Check if already sent
+  const data = loadAppreciation();
+  let userAppreciation = data[username] || { sent: [], counts: {} };
+
+  if (!userAppreciation.sent) userAppreciation.sent = [];
+  if (!userAppreciation.counts) userAppreciation.counts = {};
+
+  if (userAppreciation.sent.includes(type)) {
+    // Already sent, can't send again
+    return;
+  }
+
+  // Send appreciation
+  userAppreciation.sent.push(type);
+  userAppreciation.counts[type] = (userAppreciation.counts[type] || 0) + 1;
+  data[username] = userAppreciation;
+
+  saveAppreciation(data);
+
+  // Update UI
+  const countEl = btn.querySelector('.count');
+  countEl.textContent = userAppreciation.counts[type];
+  btn.classList.add('sent', 'animating');
+
+  // Update total count
+  const appreciationBar = btn.closest('.appreciation-bar');
+  const totalEl = appreciationBar.querySelector('.total-appreciation');
+  const buttons = appreciationBar.querySelectorAll('.appreciation-btn');
+  let totalCount = 0;
+
+  buttons.forEach(b => {
+    const t = b.dataset.type;
+    totalCount += userAppreciation.counts[t] || 0;
+  });
+
+  totalEl.textContent = `Total: ${totalCount} appreciation${totalCount === 1 ? '' : 's'}`;
+
+  // Remove animation class after animation ends
+  setTimeout(() => btn.classList.remove('animating'), 400);
 }
 
 function boot() {
