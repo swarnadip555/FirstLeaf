@@ -4,6 +4,11 @@ async function fetchContributors() {
   const elLoading = document.getElementById("loading");
   const elError = document.getElementById("error");
   const sortSelect = document.getElementById("sortSelect");
+  const elSpotlight = document.getElementById("spotlight");
+  const elShowAnother = document.getElementById("show-another");
+
+  let contributors = [];
+  let lastSpotlightIndex = -1;
 
   // Resolve repo URL automatically on GitHub Pages, or use a provided override
   function detectRepoUrl() {
@@ -24,6 +29,28 @@ async function fetchContributors() {
     repoLink.href = resolvedRepoUrl;
   } else if (repoLink) {
     repoLink.remove();
+  }
+
+  function showSpotlight() {
+    if (contributors.length === 0) return;
+
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * contributors.length);
+    } while (contributors.length > 1 && randomIndex === lastSpotlightIndex);
+
+    lastSpotlightIndex = randomIndex;
+    const person = contributors[randomIndex];
+
+    elSpotlight.innerHTML = `
+      <img src="${
+        person.avatar ||
+        `https://avatars.githubusercontent.com/${person.username || ""}`
+      }" alt="${person.name || person.username || "Contributor"} avatar">
+      <div class="name">${person.name || "Anonymous"}</div>
+      <div class="username">@${person.username || ""}</div>
+      <div class="message">"${person.message || "No message"}"</div>
+    `;
   }
 
   try {
@@ -259,7 +286,8 @@ async function fetchContributors() {
 
       return contributorElements;
     }
-
+    
+    contributors = people;
     let sortedPeople = sortContributors(people, "newest");
     let contributorElements = renderContributors(sortedPeople);
 
@@ -362,6 +390,8 @@ async function fetchContributors() {
 
     elCount.textContent = `${people.length} contributor${people.length === 1 ? "" : "s"}`;
     elLoading.remove();
+    showSpotlight(); // Initial spotlight
+    elShowAnother.addEventListener("click", showSpotlight); // Add event listener for the button
   } catch (err) {
     console.error(err);
     elError.hidden = false;
