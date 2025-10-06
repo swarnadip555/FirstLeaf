@@ -209,6 +209,7 @@ async function fetchContributors() {
           element: a,
           name: (p.name || "").toLowerCase(),
           username: (p.username || "").toLowerCase(),
+          badges: p.badges || [],
         });
       }
 
@@ -223,14 +224,72 @@ async function fetchContributors() {
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        contributorElements.forEach(({ element, name, username }) => {
-          if (name.includes(searchTerm) || username.includes(searchTerm)) {
-            element.style.display = "";
-          } else {
-            element.style.display = "none";
-          }
-        });
+        applyFiltersAndSearch(searchTerm);
       });
+    }
+
+    // Badge filter functionality
+    const badgeFilters = document.getElementById("badgeFilters");
+    const filterCount = document.getElementById("filterCount");
+    let activeFilter = "all";
+
+    if (badgeFilters) {
+      badgeFilters.addEventListener("click", (e) => {
+        if (e.target.classList.contains("badge-filter")) {
+          // Remove active class from all filters
+          document.querySelectorAll(".badge-filter").forEach(filter => {
+            filter.classList.remove("active");
+          });
+
+          // If clicking the active filter, deactivate it
+          if (activeFilter === e.target.dataset.badge) {
+            activeFilter = "all";
+            document.querySelector('.badge-filter[data-badge="all"]').classList.add("active");
+          } else {
+            // Add active class to clicked filter
+            e.target.classList.add("active");
+            activeFilter = e.target.dataset.badge;
+          }
+
+          // Apply filters
+          const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+          applyFiltersAndSearch(searchTerm);
+        }
+      });
+    }
+
+    // Function to apply both search and badge filters
+    function applyFiltersAndSearch(searchTerm) {
+      let visibleCount = 0;
+
+      contributorElements.forEach(({ element, name, username, badges }) => {
+        let matchesSearch = !searchTerm || name.includes(searchTerm) || username.includes(searchTerm);
+        let matchesBadge = activeFilter === "all" || (badges && badges.includes(activeFilter));
+
+        if (matchesSearch && matchesBadge) {
+          element.style.display = "";
+          visibleCount++;
+        } else {
+          element.style.display = "none";
+        }
+      });
+
+      // Update count
+      if (filterCount) {
+        if (activeFilter === "all") {
+          filterCount.textContent = searchTerm ? 
+            `${visibleCount} of ${people.length} contributors match search` : 
+            `Showing all ${people.length} contributors`;
+        } else {
+          const badgeLabel = document.querySelector(`.badge-filter[data-badge="${activeFilter}"]`).textContent;
+          filterCount.textContent = searchTerm ? 
+            `${visibleCount} contributors with "${badgeLabel}" badge match search` : 
+            `${visibleCount} contributors with "${badgeLabel}" badge`;
+        }
+      }
+
+      // Update main count
+      elCount.textContent = `${visibleCount} contributor${visibleCount === 1 ? "" : "s"}${visibleCount < people.length ? " (filtered)" : ""}`;
     }
 
     if (sortSelect) {
@@ -239,18 +298,10 @@ async function fetchContributors() {
         sortedPeople = sortContributors(people, sortType);
         contributorElements = renderContributors(sortedPeople);
 
-        // Reapply search
+        // Reapply search and badge filters
         const searchInput = document.getElementById("searchInput");
-        if (searchInput && searchInput.value) {
-          const searchTerm = searchInput.value.toLowerCase();
-          contributorElements.forEach(({ element, name, username }) => {
-            if (name.includes(searchTerm) || username.includes(searchTerm)) {
-              element.style.display = "";
-            } else {
-              element.style.display = "none";
-            }
-          });
-        }
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+        applyFiltersAndSearch(searchTerm);
       });
     }
 
