@@ -19,7 +19,7 @@ async function fetchStats() {
         }
       })
       .filter(Boolean);
-    
+
     console.log(`Loaded ${contributors.length} contributors`);
     console.log(contributors);
 
@@ -38,10 +38,13 @@ async function fetchStats() {
   } catch (err) {
     console.error("Error loading stats:", err);
     document.querySelectorAll(".loading").forEach((el) => {
-      el.textContent = "Could not load statistics. Please refresh and try again.";
+      el.textContent =
+        "Could not load statistics. Please refresh and try again.";
       el.classList.add("error");
     });
-    console.error("Stats loading failed. Check the error message above for details.");
+    console.error(
+      "Stats loading failed. Check the error message above for details."
+    );
   }
 }
 
@@ -52,49 +55,49 @@ function calculateOverviewStats(contributors) {
     const totalEl = document.getElementById("totalContributors");
     if (totalEl) totalEl.textContent = contributors.length;
 
-  // Newest contributor
-  const sortedByNewest = [...contributors].sort(
-    (a, b) => (b.addedAt || "").localeCompare(a.addedAt || "")
-  );
-  const newest = sortedByNewest[0];
-  const newestEl = document.getElementById("newestContributor");
-  if (newestEl) {
-    newestEl.textContent = newest
-      ? newest.name || newest.username || "Unknown"
-      : "-";
-  }
-
-  // First contributor
-  const sortedByOldest = [...contributors].sort(
-    (a, b) => (a.addedAt || "").localeCompare(b.addedAt || "")
-  );
-  const first = sortedByOldest[0];
-  const firstEl = document.getElementById("firstContributor");
-  if (firstEl) {
-    firstEl.textContent = first
-      ? first.name || first.username || "Unknown"
-      : "-";
-  }
-
-  // Average per month
-  if (contributors.length > 0) {
-    const dates = contributors
-      .map((c) => new Date(c.addedAt))
-      .filter((d) => !isNaN(d.getTime()))
-      .sort((a, b) => a - b);
-
-    if (dates.length > 0) {
-      const firstDate = dates[0];
-      const lastDate = dates[dates.length - 1];
-      const monthsDiff =
-        (lastDate.getFullYear() - firstDate.getFullYear()) * 12 +
-        (lastDate.getMonth() - firstDate.getMonth()) +
-        1;
-      const avgPerMonth = Math.round(contributors.length / monthsDiff);
-      const avgEl = document.getElementById("avgPerMonth");
-      if (avgEl) avgEl.textContent = avgPerMonth;
+    // Newest contributor
+    const sortedByNewest = [...contributors].sort((a, b) =>
+      (b.addedAt || "").localeCompare(a.addedAt || "")
+    );
+    const newest = sortedByNewest[0];
+    const newestEl = document.getElementById("newestContributor");
+    if (newestEl) {
+      newestEl.textContent = newest
+        ? newest.name || newest.username || "Unknown"
+        : "-";
     }
-  }
+
+    // First contributor
+    const sortedByOldest = [...contributors].sort((a, b) =>
+      (a.addedAt || "").localeCompare(b.addedAt || "")
+    );
+    const first = sortedByOldest[0];
+    const firstEl = document.getElementById("firstContributor");
+    if (firstEl) {
+      firstEl.textContent = first
+        ? first.name || first.username || "Unknown"
+        : "-";
+    }
+
+    // Average per month
+    if (contributors.length > 0) {
+      const dates = contributors
+        .map((c) => new Date(c.addedAt))
+        .filter((d) => !isNaN(d.getTime()))
+        .sort((a, b) => a - b);
+
+      if (dates.length > 0) {
+        const firstDate = dates[0];
+        const lastDate = dates[dates.length - 1];
+        const monthsDiff =
+          (lastDate.getFullYear() - firstDate.getFullYear()) * 12 +
+          (lastDate.getMonth() - firstDate.getMonth()) +
+          1;
+        const avgPerMonth = Math.round(contributors.length / monthsDiff);
+        const avgEl = document.getElementById("avgPerMonth");
+        if (avgEl) avgEl.textContent = avgPerMonth;
+      }
+    }
   } catch (err) {
     console.error("Error calculating overview stats:", err);
   }
@@ -110,36 +113,36 @@ function calculateBadgeDistribution(contributors) {
     }
     badgeContainer.innerHTML = "";
 
-  // Count badges
-  const badgeCounts = {};
-  contributors.forEach((contributor) => {
-    if (contributor.badges && Array.isArray(contributor.badges)) {
-      contributor.badges.forEach((badge) => {
-        const badgeType = typeof badge === "string" ? badge : badge.type;
-        badgeCounts[badgeType] = (badgeCounts[badgeType] || 0) + 1;
-      });
-    }
-  });
+    // Count badges
+    const badgeCounts = {};
+    contributors.forEach((contributor) => {
+      if (contributor.badges && Array.isArray(contributor.badges)) {
+        contributor.badges.forEach((badge) => {
+          const badgeType = typeof badge === "string" ? badge : badge.type;
+          badgeCounts[badgeType] = (badgeCounts[badgeType] || 0) + 1;
+        });
+      }
+    });
 
-  // Get badge icons
-  const badgeIcons = {
-    first: { icon: "🥇", label: "First" },
-    core: { icon: "⭐", label: "Core Team" },
-    top: { icon: "🏆", label: "Top Contributor" },
-    helper: { icon: "🤝", label: "Helper" },
-    early: { icon: "🌱", label: "Early Adopter" },
-    milestone: { icon: "🎯", label: "Milestone" },
-  };
+    // Get badge icons
+    const badgeIcons = {
+      first: { icon: "🥇", label: "First" },
+      core: { icon: "⭐", label: "Core Team" },
+      top: { icon: "🏆", label: "Top Contributor" },
+      helper: { icon: "🤝", label: "Helper" },
+      early: { icon: "🌱", label: "Early Adopter" },
+      milestone: { icon: "🎯", label: "Milestone" },
+    };
 
-  // Create badge distribution elements
-  const total = contributors.length;
-  Object.entries(badgeCounts).forEach(([badge, count]) => {
-    const percentage = Math.round((count / total) * 100);
-    const badgeInfo = badgeIcons[badge] || { icon: "🏅", label: badge };
+    // Create badge distribution elements
+    const total = contributors.length;
+    Object.entries(badgeCounts).forEach(([badge, count]) => {
+      const percentage = Math.round((count / total) * 100);
+      const badgeInfo = badgeIcons[badge] || { icon: "🏅", label: badge };
 
-    const badgeEl = document.createElement("div");
-    badgeEl.className = "badge-stat-item";
-    badgeEl.innerHTML = `
+      const badgeEl = document.createElement("div");
+      badgeEl.className = "badge-stat-item";
+      badgeEl.innerHTML = `
       <div class="badge-info">
         <span class="badge-icon">${badgeInfo.icon}</span>
         <span class="badge-name">${badgeInfo.label}</span>
@@ -149,17 +152,18 @@ function calculateBadgeDistribution(contributors) {
         <div class="badge-bar-fill" style="width: ${percentage}%"></div>
       </div>
     `;
-    badgeContainer.appendChild(badgeEl);
-  });
+      badgeContainer.appendChild(badgeEl);
+    });
 
-  if (Object.keys(badgeCounts).length === 0) {
-    badgeContainer.innerHTML = "<p>No badges have been awarded yet.</p>";
-  }
+    if (Object.keys(badgeCounts).length === 0) {
+      badgeContainer.innerHTML = "<p>No badges have been awarded yet.</p>";
+    }
   } catch (err) {
     console.error("Error calculating badge distribution:", err);
     const badgeContainer = document.getElementById("badgeDistribution");
     if (badgeContainer) {
-      badgeContainer.innerHTML = "<p>Could not load badge statistics. Please refresh and try again.</p>";
+      badgeContainer.innerHTML =
+        "<p>Could not load badge statistics. Please refresh and try again.</p>";
     }
   }
 }
@@ -174,74 +178,106 @@ function calculateGrowthOverTime(contributors) {
     }
     growthContainer.innerHTML = "";
 
-  // Group by month
-  const monthlyCounts = {};
-  let cumulativeCount = 0;
+    // Group by month
+    const monthlyCounts = {};
+    let cumulativeCount = 0;
 
-  // Process all months in chronological order
-  contributors.forEach((contributor) => {
-    if (contributor.addedAt) {
-      const date = new Date(contributor.addedAt);
-      if (!isNaN(date.getTime())) {
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-        if (!monthlyCounts[monthKey]) {
-          monthlyCounts[monthKey] = 0;
+    // Process all months in chronological order
+    contributors.forEach((contributor) => {
+      if (contributor.addedAt) {
+        const date = new Date(contributor.addedAt);
+        if (!isNaN(date.getTime())) {
+          const monthKey = `${date.getFullYear()}-${String(
+            date.getMonth() + 1
+          ).padStart(2, "0")}`;
+          if (!monthlyCounts[monthKey]) {
+            monthlyCounts[monthKey] = 0;
+          }
+          monthlyCounts[monthKey]++;
         }
-        monthlyCounts[monthKey]++;
       }
-    }
-  });
-
-  // Sort months chronologically
-  const sortedMonths = Object.keys(monthlyCounts).sort();
-
-  // Calculate cumulative values
-  const cumulativeData = {};
-  sortedMonths.forEach((month) => {
-    cumulativeCount += monthlyCounts[month];
-    cumulativeData[month] = cumulativeCount;
-  });
-
-  // Find max count for scaling
-  const maxCount = Math.max(...Object.values(cumulativeData), 1);
-
-  // Create chart
-  const chartEl = document.createElement("div");
-  chartEl.className = "bar-chart";
-
-  sortedMonths.forEach((month) => {
-    const count = cumulativeData[month];
-    // Ensure minimum height for visibility and proper scaling
-    const percentage = Math.max(5, (count / maxCount) * 100);
-
-    const [year, monthNum] = month.split("-");
-    const monthName = new Date(year, monthNum - 1).toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric"
     });
 
-    const barEl = document.createElement("div");
-    barEl.className = "bar-item";
-    barEl.innerHTML = `
+    // Sort months chronologically
+    const sortedMonths = Object.keys(monthlyCounts).sort();
+
+    // Calculate cumulative values
+    const cumulativeData = {};
+    sortedMonths.forEach((month) => {
+      cumulativeCount += monthlyCounts[month];
+      cumulativeData[month] = cumulativeCount;
+    });
+
+    // Find max count for scaling
+    const maxCount = Math.max(...Object.values(cumulativeData), 1);
+
+    // Create chart
+    const chartEl = document.createElement("div");
+    chartEl.className = "bar-chart";
+
+    sortedMonths.forEach((month, index) => {
+      const count = cumulativeData[month];
+      const newContributors = monthlyCounts[month];
+      // Ensure minimum height for visibility and proper scaling
+      const percentage = Math.max(8, (count / maxCount) * 100);
+
+      const [year, monthNum] = month.split("-");
+      const monthName = new Date(year, monthNum - 1).toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          year: "numeric",
+        }
+      );
+
+      const barEl = document.createElement("div");
+      barEl.className = "bar-item";
+      barEl.innerHTML = `
       <div class="bar-container">
-        <div class="bar" style="height: ${percentage}%"></div>
+        <div class="bar" style="height: ${percentage}%" title="Total: ${count} contributors (${newContributors} new in ${monthName})"></div>
       </div>
       <div class="bar-label">${monthName}</div>
       <div class="bar-value">${count}</div>
     `;
-    chartEl.appendChild(barEl);
-  });
 
-  growthContainer.appendChild(chartEl);
+      // Add animation delay
+      const bar = barEl.querySelector(".bar");
+      if (bar) {
+        bar.style.animationDelay = `${index * 0.05}s`;
+      }
 
-  if (sortedMonths.length === 0) {
-    growthContainer.innerHTML = "<p>No growth data available.</p>";
-  }
+      chartEl.appendChild(barEl);
+    });
+
+    growthContainer.appendChild(chartEl);
+
+    // Add scroll hint if there are many months
+    if (sortedMonths.length > 8) {
+      const scrollHint = document.createElement("div");
+      scrollHint.className = "scroll-hint";
+      scrollHint.textContent = "← Scroll to see more →";
+      growthContainer.appendChild(scrollHint);
+
+      // Hide scroll hint after user scrolls
+      chartEl.addEventListener(
+        "scroll",
+        () => {
+          scrollHint.style.opacity = "0";
+          setTimeout(() => scrollHint.remove(), 300);
+        },
+        { once: true }
+      );
+    }
+
+    if (sortedMonths.length === 0) {
+      growthContainer.innerHTML = "<p>No growth data available.</p>";
+    }
   } catch (err) {
     console.error("Error calculating growth over time:", err);
     const growthContainer = document.getElementById("growthChart");
     if (growthContainer) {
-      growthContainer.innerHTML = "<p>Could not load growth statistics. Please refresh and try again.</p>";
+      growthContainer.innerHTML =
+        "<p>Could not load growth statistics. Please refresh and try again.</p>";
     }
   }
 }
@@ -256,72 +292,73 @@ function calculateNameStatistics(contributors) {
     }
     nameContainer.innerHTML = "";
 
-  // Extract first names
-  const firstNames = {};
-  contributors.forEach((contributor) => {
-    if (contributor.name) {
-      const firstName = contributor.name.split(" ")[0];
-      firstNames[firstName] = (firstNames[firstName] || 0) + 1;
-    }
-  });
+    // Extract first names
+    const firstNames = {};
+    contributors.forEach((contributor) => {
+      if (contributor.name) {
+        const firstName = contributor.name.split(" ")[0];
+        firstNames[firstName] = (firstNames[firstName] || 0) + 1;
+      }
+    });
 
-  // Find most common name
-  const sortedNames = Object.entries(firstNames).sort((a, b) => b[1] - a[1]);
-  const mostCommon = sortedNames[0];
+    // Find most common name
+    const sortedNames = Object.entries(firstNames).sort((a, b) => b[1] - a[1]);
+    const mostCommon = sortedNames[0];
 
-  // Find longest and shortest names
-  const nameLengths = contributors
-    .filter((c) => c.name)
-    .map((c) => ({ name: c.name, length: c.name.length }))
-    .sort((a, b) => b.length - a.length);
+    // Find longest and shortest names
+    const nameLengths = contributors
+      .filter((c) => c.name)
+      .map((c) => ({ name: c.name, length: c.name.length }))
+      .sort((a, b) => b.length - a.length);
 
-  const longestName = nameLengths[0];
-  const shortestName = nameLengths[nameLengths.length - 1];
+    const longestName = nameLengths[0];
+    const shortestName = nameLengths[nameLengths.length - 1];
 
-  // Create name statistics elements
-  const statsEl = document.createElement("div");
-  statsEl.className = "name-stats";
+    // Create name statistics elements
+    const statsEl = document.createElement("div");
+    statsEl.className = "name-stats";
 
-  if (mostCommon) {
-    const mostCommonEl = document.createElement("div");
-    mostCommonEl.className = "name-stat-item";
-    mostCommonEl.innerHTML = `
+    if (mostCommon) {
+      const mostCommonEl = document.createElement("div");
+      mostCommonEl.className = "name-stat-item";
+      mostCommonEl.innerHTML = `
       <div class="name-stat-label">Most common name</div>
       <div class="name-stat-value">${mostCommon[0]} (${mostCommon[1]} contributors)</div>
     `;
-    statsEl.appendChild(mostCommonEl);
-  }
+      statsEl.appendChild(mostCommonEl);
+    }
 
-  if (longestName) {
-    const longestEl = document.createElement("div");
-    longestEl.className = "name-stat-item";
-    longestEl.innerHTML = `
+    if (longestName) {
+      const longestEl = document.createElement("div");
+      longestEl.className = "name-stat-item";
+      longestEl.innerHTML = `
       <div class="name-stat-label">Longest name</div>
       <div class="name-stat-value">${longestName.name} (${longestName.length} characters)</div>
     `;
-    statsEl.appendChild(longestEl);
-  }
+      statsEl.appendChild(longestEl);
+    }
 
-  if (shortestName) {
-    const shortestEl = document.createElement("div");
-    shortestEl.className = "name-stat-item";
-    shortestEl.innerHTML = `
+    if (shortestName) {
+      const shortestEl = document.createElement("div");
+      shortestEl.className = "name-stat-item";
+      shortestEl.innerHTML = `
       <div class="name-stat-label">Shortest name</div>
       <div class="name-stat-value">${shortestName.name} (${shortestName.length} characters)</div>
     `;
-    statsEl.appendChild(shortestEl);
-  }
+      statsEl.appendChild(shortestEl);
+    }
 
-  nameContainer.appendChild(statsEl);
+    nameContainer.appendChild(statsEl);
 
-  if (sortedNames.length === 0) {
-    nameContainer.innerHTML = "<p>No name data available.</p>";
-  }
+    if (sortedNames.length === 0) {
+      nameContainer.innerHTML = "<p>No name data available.</p>";
+    }
   } catch (err) {
     console.error("Error calculating name statistics:", err);
     const nameContainer = document.getElementById("nameStatistics");
     if (nameContainer) {
-      nameContainer.innerHTML = "<p>Could not load name statistics. Please refresh and try again.</p>";
+      nameContainer.innerHTML =
+        "<p>Could not load name statistics. Please refresh and try again.</p>";
     }
   }
 }
@@ -336,121 +373,152 @@ function calculateFunFacts(contributors) {
     }
     factsContainer.innerHTML = "";
 
-  const facts = [];
+    const facts = [];
 
-  // First contributor fact
-  const sortedByOldest = [...contributors].sort(
-    (a, b) => (a.addedAt || "").localeCompare(b.addedAt || "")
-  );
-  const first = sortedByOldest[0];
-  if (first) {
-    const date = new Date(first.addedAt);
-    if (!isNaN(date.getTime())) {
-      facts.push(
-        `The first contributor was ${first.name || first.username || "Unknown"}, who joined on ${date.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        })}`
-      );
-    }
-  }
-
-  // Busiest month fact
-  const monthlyCounts = {};
-  contributors.forEach((contributor) => {
-    if (contributor.addedAt) {
-      const date = new Date(contributor.addedAt);
+    // First contributor fact
+    const sortedByOldest = [...contributors].sort((a, b) =>
+      (a.addedAt || "").localeCompare(b.addedAt || "")
+    );
+    const first = sortedByOldest[0];
+    if (first) {
+      const date = new Date(first.addedAt);
       if (!isNaN(date.getTime())) {
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-        monthlyCounts[monthKey] = (monthlyCounts[monthKey] || 0) + 1;
+        facts.push(
+          `The first contributor was ${
+            first.name || first.username || "Unknown"
+          }, who joined on ${date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}`
+        );
       }
     }
-  });
 
-  const sortedMonths = Object.entries(monthlyCounts).sort((a, b) => b[1] - a[1]);
-  if (sortedMonths.length > 0) {
-    const [month, count] = sortedMonths[0];
-    const [year, monthNum] = month.split("-");
-    const monthName = new Date(year, monthNum - 1).toLocaleDateString("en-US", {
-      month: "long",
-      year: "numeric"
+    // Busiest month fact
+    const monthlyCounts = {};
+    contributors.forEach((contributor) => {
+      if (contributor.addedAt) {
+        const date = new Date(contributor.addedAt);
+        if (!isNaN(date.getTime())) {
+          const monthKey = `${date.getFullYear()}-${String(
+            date.getMonth() + 1
+          ).padStart(2, "0")}`;
+          monthlyCounts[monthKey] = (monthlyCounts[monthKey] || 0) + 1;
+        }
+      }
     });
-    facts.push(`${monthName} was our busiest month with ${count} new contributors`);
-  }
 
-  // Most common name fact
-  const firstNames = {};
-  contributors.forEach((contributor) => {
-    if (contributor.name) {
-      const firstName = contributor.name.split(" ")[0];
-      firstNames[firstName] = (firstNames[firstName] || 0) + 1;
+    const sortedMonths = Object.entries(monthlyCounts).sort(
+      (a, b) => b[1] - a[1]
+    );
+    if (sortedMonths.length > 0) {
+      const [month, count] = sortedMonths[0];
+      const [year, monthNum] = month.split("-");
+      const monthName = new Date(year, monthNum - 1).toLocaleDateString(
+        "en-US",
+        {
+          month: "long",
+          year: "numeric",
+        }
+      );
+      facts.push(
+        `${monthName} was our busiest month with ${count} new contributors`
+      );
     }
-  });
 
-  const sortedNames = Object.entries(firstNames).sort((a, b) => b[1] - a[1]);
-  if (sortedNames.length > 0) {
-    const [name, count] = sortedNames[0];
-    facts.push(`The most common first name is "${name}" (appears ${count} time${count > 1 ? "s" : ""})`);
-  }
+    // Most common name fact
+    const firstNames = {};
+    contributors.forEach((contributor) => {
+      if (contributor.name) {
+        const firstName = contributor.name.split(" ")[0];
+        firstNames[firstName] = (firstNames[firstName] || 0) + 1;
+      }
+    });
 
-  // Badge percentage fact
-  const contributorsWithBadges = contributors.filter(
-    (c) => c.badges && Array.isArray(c.badges) && c.badges.length > 0
-  ).length;
-
-  if (contributors.length > 0) {
-    const badgePercentage = Math.round((contributorsWithBadges / contributors.length) * 100);
-    facts.push(`${badgePercentage}% of contributors have at least one badge`);
-  }
-
-  // Longest message fact
-  const messages = contributors
-    .filter((c) => c.message)
-    .map((c) => ({ name: c.name || c.username, message: c.message, length: c.message.length }))
-    .sort((a, b) => b.length - a.length);
-
-  if (messages.length > 0) {
-    const longest = messages[0];
-    facts.push(`The longest message is ${longest.length} characters long by ${longest.name}`);
-  }
-
-  // Average per week fact
-  if (contributors.length > 0) {
-    const dates = contributors
-      .map((c) => new Date(c.addedAt))
-      .filter((d) => !isNaN(d.getTime()))
-      .sort((a, b) => a - b);
-
-    if (dates.length > 0) {
-      const firstDate = dates[0];
-      const lastDate = dates[dates.length - 1];
-      const weeksDiff = Math.max(1, Math.ceil((lastDate - firstDate) / (7 * 24 * 60 * 60 * 1000)));
-      const avgPerWeek = Math.round(contributors.length / weeksDiff);
-      facts.push(`Average of ${avgPerWeek} contributor${avgPerWeek === 1 ? "" : "s"} per week`);
+    const sortedNames = Object.entries(firstNames).sort((a, b) => b[1] - a[1]);
+    if (sortedNames.length > 0) {
+      const [name, count] = sortedNames[0];
+      facts.push(
+        `The most common first name is "${name}" (appears ${count} time${
+          count > 1 ? "s" : ""
+        })`
+      );
     }
-  }
 
-  // Create fun facts list
-  const factsListEl = document.createElement("ul");
-  factsListEl.className = "fun-facts-list";
+    // Badge percentage fact
+    const contributorsWithBadges = contributors.filter(
+      (c) => c.badges && Array.isArray(c.badges) && c.badges.length > 0
+    ).length;
 
-  facts.forEach((fact) => {
-    const factEl = document.createElement("li");
-    factEl.textContent = fact;
-    factsListEl.appendChild(factEl);
-  });
+    if (contributors.length > 0) {
+      const badgePercentage = Math.round(
+        (contributorsWithBadges / contributors.length) * 100
+      );
+      facts.push(`${badgePercentage}% of contributors have at least one badge`);
+    }
 
-  factsContainer.appendChild(factsListEl);
+    // Longest message fact
+    const messages = contributors
+      .filter((c) => c.message)
+      .map((c) => ({
+        name: c.name || c.username,
+        message: c.message,
+        length: c.message.length,
+      }))
+      .sort((a, b) => b.length - a.length);
 
-  if (facts.length === 0) {
-    factsContainer.innerHTML = "<p>No fun facts available yet.</p>";
-  }
+    if (messages.length > 0) {
+      const longest = messages[0];
+      facts.push(
+        `The longest message is ${longest.length} characters long by ${longest.name}`
+      );
+    }
+
+    // Average per week fact
+    if (contributors.length > 0) {
+      const dates = contributors
+        .map((c) => new Date(c.addedAt))
+        .filter((d) => !isNaN(d.getTime()))
+        .sort((a, b) => a - b);
+
+      if (dates.length > 0) {
+        const firstDate = dates[0];
+        const lastDate = dates[dates.length - 1];
+        const weeksDiff = Math.max(
+          1,
+          Math.ceil((lastDate - firstDate) / (7 * 24 * 60 * 60 * 1000))
+        );
+        const avgPerWeek = Math.round(contributors.length / weeksDiff);
+        facts.push(
+          `Average of ${avgPerWeek} contributor${
+            avgPerWeek === 1 ? "" : "s"
+          } per week`
+        );
+      }
+    }
+
+    // Create fun facts list
+    const factsListEl = document.createElement("ul");
+    factsListEl.className = "fun-facts-list";
+
+    facts.forEach((fact) => {
+      const factEl = document.createElement("li");
+      factEl.textContent = fact;
+      factsListEl.appendChild(factEl);
+    });
+
+    factsContainer.appendChild(factsListEl);
+
+    if (facts.length === 0) {
+      factsContainer.innerHTML = "<p>No fun facts available yet.</p>";
+    }
   } catch (err) {
     console.error("Error calculating fun facts:", err);
     const factsContainer = document.getElementById("funFacts");
     if (factsContainer) {
-      factsContainer.innerHTML = "<p>Could not load fun facts. Please refresh and try again.</p>";
+      factsContainer.innerHTML =
+        "<p>Could not load fun facts. Please refresh and try again.</p>";
     }
   }
 }
@@ -460,19 +528,30 @@ function initThemeToggle() {
   const themeIcon = document.getElementById("themeIcon");
   const html = document.documentElement;
 
+  if (!themeToggle) {
+    console.error("Theme toggle button not found!");
+    return;
+  }
+
+  if (!themeIcon) {
+    console.warn("Theme icon not found!");
+  }
+
   // Check for saved theme preference or default to 'dark'
   const currentTheme = localStorage.getItem("theme") || "dark";
   html.setAttribute("data-theme", currentTheme);
   updateThemeIcon(currentTheme);
+  console.log(`Initial theme set to: ${currentTheme}`);
 
   // Toggle theme on button click
-  themeToggle?.addEventListener("click", () => {
+  themeToggle.addEventListener("click", () => {
     const currentTheme = html.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
 
     html.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
     updateThemeIcon(newTheme);
+    console.log(`Theme switched to: ${newTheme}`);
   });
 
   function updateThemeIcon(theme) {
@@ -528,7 +607,10 @@ function initScrollProgress() {
       progressBar.style.width = "0%";
       return;
     }
-    const scrollPercent = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+    const scrollPercent = Math.min(
+      100,
+      Math.max(0, (scrollTop / docHeight) * 100)
+    );
     progressBar.style.width = `${scrollPercent}%`;
   }
 
@@ -537,10 +619,12 @@ function initScrollProgress() {
 }
 
 function boot() {
+  console.log("Initializing stats page...");
   fetchStats();
   initThemeToggle();
   initScrollToTop();
   initScrollProgress();
+  console.log("Stats page initialized!");
 }
 
 // Initialize when DOM is ready
@@ -549,5 +633,3 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
-
-boot();
