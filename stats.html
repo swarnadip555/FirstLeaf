@@ -30,10 +30,28 @@
         </div>
         <nav class="actions">
           <a class="btn" href="index.html">← Back to Contributors</a>
+          <div class="theme-selector-wrapper">
+            <label for="colorThemeSelect" class="sr-only"
+              >Select Color Theme</label
+            >
+            <select
+              id="colorThemeSelect"
+              class="btn theme-select"
+              aria-label="Select color theme"
+            >
+              <option value="dark">🌙 Dark</option>
+              <option value="light">☀️ Light</option>
+              <option value="ocean">🌊 Ocean Blue</option>
+              <option value="forest">🌲 Forest Green</option>
+              <option value="sunset">🌅 Sunset Orange</option>
+              <option value="galaxy">🌌 Purple Galaxy</option>
+            </select>
+          </div>
           <button
             id="themeToggle"
             class="btn theme-toggle"
             aria-label="Toggle theme"
+            style="display: none"
           >
             <span id="themeIcon">☀️</span>
           </button>
