@@ -524,41 +524,33 @@ function calculateFunFacts(contributors) {
 }
 
 function initThemeToggle() {
-  const themeToggle = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
+  const colorThemeSelect = document.getElementById("colorThemeSelect");
   const html = document.documentElement;
 
-  if (!themeToggle) {
-    console.error("Theme toggle button not found!");
+  if (!colorThemeSelect) {
+    console.warn("Color theme selector not found!");
     return;
   }
 
-  if (!themeIcon) {
-    console.warn("Theme icon not found!");
-  }
-
   // Check for saved theme preference or default to 'dark'
-  const currentTheme = localStorage.getItem("theme") || "dark";
+  const currentTheme = localStorage.getItem("colorTheme") || "dark";
   html.setAttribute("data-theme", currentTheme);
-  updateThemeIcon(currentTheme);
-  console.log(`Initial theme set to: ${currentTheme}`);
+  colorThemeSelect.value = currentTheme;
+  console.log(`Initial color theme set to: ${currentTheme}`);
 
-  // Toggle theme on button click
-  themeToggle.addEventListener("click", () => {
-    const currentTheme = html.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-
+  // Change theme on dropdown selection
+  colorThemeSelect.addEventListener("change", (e) => {
+    const newTheme = e.target.value;
     html.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    updateThemeIcon(newTheme);
-    console.log(`Theme switched to: ${newTheme}`);
-  });
+    localStorage.setItem("colorTheme", newTheme);
+    console.log(`Color theme switched to: ${newTheme}`);
 
-  function updateThemeIcon(theme) {
-    if (themeIcon) {
-      themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
-  }
+    // Add a brief animation class for smooth transition
+    html.classList.add("theme-transitioning");
+    setTimeout(() => {
+      html.classList.remove("theme-transitioning");
+    }, 300);
+  });
 }
 
 function initScrollToTop() {
