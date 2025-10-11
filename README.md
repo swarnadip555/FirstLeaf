@@ -153,8 +153,12 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><img src="https://avatars.githubusercontent.com/Sanskar-Agrawal01" width="80px;" alt="Sanskar Agrawal"/></a></td>
+    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><img src="https://avatars.githubusercontent.com/KrushnaliMungekar57" width="80px;" alt="Krushnali Mungekar"/></a></td>
+    <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><sub><b>Sanskar Agrawal</b></sub></a></td>
+    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><sub><b>Krushnali Mungekar</b></sub></a></td>
+    <td align="center"><a href="https://github.com/CodeCrafter2030"><sub><b>Lalit Rathod</b></sub></a></td>
   </tr>
 </table>
