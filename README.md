@@ -169,8 +169,10 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
+    <td align="center"><a href="https://github.com/suthakaranburaj"><img src="https://avatars.githubusercontent.com/suthakaranburaj" width="80px;" alt="Suthakar Anburaj"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><sub><b>Lalit Rathod</b></sub></a></td>
+    <td align="center"><a href="https://github.com/suthakaranburaj"><sub><b>Suthakar Anburaj</b></sub></a></td>
   </tr>
 </table>
