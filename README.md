@@ -153,18 +153,24 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><img src="https://avatars.githubusercontent.com/Sanskar-Agrawal01" width="80px;" alt="Sanskar Agrawal"/></a></td>
+    <td align="center"><a href="https://github.com/evar-7"><img src="https://avatars.githubusercontent.com/evar-7" width="80px;" alt="evar-7"/></a></td>
     <td align="center"><a href="https://github.com/priyansh-sinha2109"><img src="https://avatars.githubusercontent.com/priyansh-sinha2109" width="80px;" alt="Priyansh Sinha"/></a></td>
     <td align="center"><a href="https://github.com/Gaurav-devv"><img src="https://avatars.githubusercontent.com/Gaurav-devv" width="80px;" alt="Gaurav Tiwari"/></a></td>
     <td align="center"><a href="https://github.com/avimishraa"><img src="https://avatars.githubusercontent.com/avimishraa" width="80px;" alt="Avinash Mishra"/></a></td>
     <td align="center"><a href="https://github.com/KrushnaliMungekar57"><img src="https://avatars.githubusercontent.com/KrushnaliMungekar57" width="80px;" alt="Krushnali Mungekar"/></a></td>
-    <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><sub><b>Sanskar Agrawal</b></sub></a></td>
+    <td align="center"><a href="https://github.com/evar-7"><sub><b>evar-7</b></sub></a></td>
     <td align="center"><a href="https://github.com/priyansh-sinha2109"><sub><b>Priyansh Sinha</b></sub></a></td>
     <td align="center"><a href="https://github.com/Gaurav-devv"><sub><b>Gaurav Tiwari</b></sub></a></td>
     <td align="center"><a href="https://github.com/avimishraa"><sub><b>Avinash Mishra</b></sub></a></td>
     <td align="center"><a href="https://github.com/KrushnaliMungekar57"><sub><b>Krushnali Mungekar</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
+  </tr>
+  <tr>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><sub><b>Lalit Rathod</b></sub></a></td>
   </tr>
 </table>
