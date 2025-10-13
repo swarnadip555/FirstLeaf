@@ -183,4 +183,10 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/abhijeetpatilrm"><sub><b>Abhijeet Patil</b></sub></a></td>
     <td align="center"><a href="https://github.com/swastikpratik-bit"><sub><b>Swastik Pratik Singh</b></sub></a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Prasadsing25"><img src="https://avatars.githubusercontent.com/Prasadsing25" width="80px;" alt="Prasadsing Solanki"/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Prasadsing25"><sub><b>Prasadsing Solanki</b></sub></a></td>
+  </tr>
 </table>
