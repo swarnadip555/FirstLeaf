@@ -185,8 +185,10 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Prasadsing25"><img src="https://avatars.githubusercontent.com/Prasadsing25" width="80px;" alt="Prasadsing Solanki"/></a></td>
+    <td align="center"><a href="https://github.com/SurajPatil1404"><img src="https://avatars.githubusercontent.com/SurajPatil1404" width="80px;" alt="Suraj Patil"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Prasadsing25"><sub><b>Prasadsing Solanki</b></sub></a></td>
+    <td align="center"><a href="https://github.com/SurajPatil1404"><sub><b>Suraj Patil</b></sub></a></td>
   </tr>
 </table>
