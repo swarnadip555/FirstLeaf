@@ -154,40 +154,42 @@ Thank you to all the amazing contributors who have helped make this project bett
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><img src="https://avatars.githubusercontent.com/Sanskar-Agrawal01" width="80px;" alt="Sanskar Agrawal"/></a></td>
     <td align="center"><a href="https://github.com/evar-7"><img src="https://avatars.githubusercontent.com/evar-7" width="80px;" alt="evar-7"/></a></td>
+    <td align="center"><a href="https://github.com/sahilshingate01"><img src="https://avatars.githubusercontent.com/sahilshingate01" width="80px;" alt="Sahil Shingate"/></a></td>
     <td align="center"><a href="https://github.com/priyansh-sinha2109"><img src="https://avatars.githubusercontent.com/priyansh-sinha2109" width="80px;" alt="Priyansh Sinha"/></a></td>
     <td align="center"><a href="https://github.com/Gaurav-devv"><img src="https://avatars.githubusercontent.com/Gaurav-devv" width="80px;" alt="Gaurav Tiwari"/></a></td>
     <td align="center"><a href="https://github.com/avimishraa"><img src="https://avatars.githubusercontent.com/avimishraa" width="80px;" alt="Avinash Mishra"/></a></td>
-    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><img src="https://avatars.githubusercontent.com/KrushnaliMungekar57" width="80px;" alt="Krushnali Mungekar"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Sanskar-Agrawal01"><sub><b>Sanskar Agrawal</b></sub></a></td>
     <td align="center"><a href="https://github.com/evar-7"><sub><b>evar-7</b></sub></a></td>
+    <td align="center"><a href="https://github.com/sahilshingate01"><sub><b>Sahil Shingate</b></sub></a></td>
     <td align="center"><a href="https://github.com/priyansh-sinha2109"><sub><b>Priyansh Sinha</b></sub></a></td>
     <td align="center"><a href="https://github.com/Gaurav-devv"><sub><b>Gaurav Tiwari</b></sub></a></td>
     <td align="center"><a href="https://github.com/avimishraa"><sub><b>Avinash Mishra</b></sub></a></td>
-    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><sub><b>Krushnali Mungekar</b></sub></a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><img src="https://avatars.githubusercontent.com/KrushnaliMungekar57" width="80px;" alt="Krushnali Mungekar"/></a></td>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><img src="https://avatars.githubusercontent.com/CodeCrafter2030" width="80px;" alt="Lalit Rathod"/></a></td>
     <td align="center"><a href="https://github.com/suthakaranburaj"><img src="https://avatars.githubusercontent.com/suthakaranburaj" width="80px;" alt="Suthakar Anburaj"/></a></td>
     <td align="center"><a href="https://github.com/chakri-chris"><img src="https://avatars.githubusercontent.com/Chakri-chris" width="80px;" alt="Chakradhar"/></a></td>
     <td align="center"><a href="https://github.com/stom-breaker-07"><img src="https://avatars.githubusercontent.com/stom-breaker-07" width="80px;" alt="Chinmay L"/></a></td>
     <td align="center"><a href="https://github.com/abhijeetpatilrm"><img src="https://avatars.githubusercontent.com/abhijeetpatilrm" width="80px;" alt="Abhijeet Patil"/></a></td>
-    <td align="center"><a href="https://github.com/swastikpratik-bit"><img src="https://avatars.githubusercontent.com/swastikpratik-bit" width="80px;" alt="Swastik Pratik Singh"/></a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/KrushnaliMungekar57"><sub><b>Krushnali Mungekar</b></sub></a></td>
     <td align="center"><a href="https://github.com/CodeCrafter2030"><sub><b>Lalit Rathod</b></sub></a></td>
     <td align="center"><a href="https://github.com/suthakaranburaj"><sub><b>Suthakar Anburaj</b></sub></a></td>
     <td align="center"><a href="https://github.com/chakri-chris"><sub><b>Chakradhar</b></sub></a></td>
     <td align="center"><a href="https://github.com/stom-breaker-07"><sub><b>Chinmay L</b></sub></a></td>
     <td align="center"><a href="https://github.com/abhijeetpatilrm"><sub><b>Abhijeet Patil</b></sub></a></td>
-    <td align="center"><a href="https://github.com/swastikpratik-bit"><sub><b>Swastik Pratik Singh</b></sub></a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/swastikpratik-bit"><img src="https://avatars.githubusercontent.com/swastikpratik-bit" width="80px;" alt="Swastik Pratik Singh"/></a></td>
     <td align="center"><a href="https://github.com/Prasadsing25"><img src="https://avatars.githubusercontent.com/Prasadsing25" width="80px;" alt="Prasadsing Solanki"/></a></td>
     <td align="center"><a href="https://github.com/SurajPatil1404"><img src="https://avatars.githubusercontent.com/SurajPatil1404" width="80px;" alt="Suraj Patil"/></a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/swastikpratik-bit"><sub><b>Swastik Pratik Singh</b></sub></a></td>
     <td align="center"><a href="https://github.com/Prasadsing25"><sub><b>Prasadsing Solanki</b></sub></a></td>
     <td align="center"><a href="https://github.com/SurajPatil1404"><sub><b>Suraj Patil</b></sub></a></td>
   </tr>
