@@ -189,6 +189,7 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/SurajPatil1404"><img src="https://avatars.githubusercontent.com/SurajPatil1404" width="80px;" alt="Suraj Patil"/></a></td>
     <td align="center"><a href="https://github.com/azmolwasimhussain-ops"><img src="https://avatars.githubusercontent.com/azmolwasimhussain-ops" width="80px;" alt="Azmol Wasim Hussain."/></a></td>
     <td align="center"><a href="https://github.com/Megh2005"><img src="https://avatars.githubusercontent.com/Megh2005" width="80px;" alt="Megh Deb"/></a></td>
+    <td align="center"><a href="https://github.com/Munazir151"><img src="https://avatars.githubusercontent.com/Munazir151" width="80px;" alt="Munazir Ansari"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/swastikpratik-bit"><sub><b>Swastik Pratik Singh</b></sub></a></td>
@@ -196,5 +197,6 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/SurajPatil1404"><sub><b>Suraj Patil</b></sub></a></td>
     <td align="center"><a href="https://github.com/azmolwasimhussain-ops"><sub><b>Azmol Wasim Hussain.</b></sub></a></td>
     <td align="center"><a href="https://github.com/Megh2005"><sub><b>Megh Deb</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Munazir151"><sub><b>Munazir Ansari</b></sub></a></td>
   </tr>
 </table>
