@@ -199,4 +199,10 @@ Thank you to all the amazing contributors who have helped make this project bett
     <td align="center"><a href="https://github.com/Megh2005"><sub><b>Megh Deb</b></sub></a></td>
     <td align="center"><a href="https://github.com/Munazir151"><sub><b>Munazir Ansari</b></sub></a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/2005Mohammadali"><img src="https://avatars.githubusercontent.com/2005Mohammadali" width="80px;" alt="Mohammadali Shaikh"/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/2005Mohammadali"><sub><b>Mohammadali Shaikh</b></sub></a></td>
+  </tr>
 </table>
