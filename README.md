@@ -201,8 +201,10 @@ Thank you to all the amazing contributors who have helped make this project bett
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/2005Mohammadali"><img src="https://avatars.githubusercontent.com/2005Mohammadali" width="80px;" alt="Mohammadali Shaikh"/></a></td>
+    <td align="center"><a href="https://github.com/Varadraj75"><img src="https://avatars.githubusercontent.com/Varadraj75" width="80px;" alt="Varad Raj Agrawal"/></a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/2005Mohammadali"><sub><b>Mohammadali Shaikh</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Varadraj75"><sub><b>Varad Raj Agrawal</b></sub></a></td>
   </tr>
 </table>
